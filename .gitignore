@@ -1,0 +1,23 @@
+# OS Files
+.DS_Store
+._*
+
+# Config
+config.js
+
+# Logs
+*.log
+logs/*
+
+# NPM & all the world
+node_modules
+
+# Upload Files
+uploads/*
+!.gitkeep
+
+# Public by Gulp
+public
+
+# Dist
+dist/*
