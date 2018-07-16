@@ -1,4 +1,5 @@
 module.exports = {
+  mapurl: "https://overviewer.org/example/",
   secret: "nichijou",
   db: {
     development: {
