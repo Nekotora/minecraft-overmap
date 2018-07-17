@@ -5,53 +5,58 @@ import { Controller, Get, Req, Res } from "routing-controllers";
 
 needle.defaults({
   open_timeout: 60000,
-  user_agent: 'OverMap/1.2.3' 
+  response_timeout: 120000,
+  user_agent: 'OverMap/0.0.0' 
 });
 
 @Controller()
 export class WelcomeController {
   constructor(
   ){
-    
   }
 
+  private async proxyUrl(reqUrl: string){
+    let proxyTarget = 'https://overviewer.org/example/'
+    let proxyUrl =  proxyTarget + reqUrl.replace('/proxy/', '')
+    console.log(`${chalk.bgGreen.white(' Proxy ')} \n${reqUrl}\n${proxyUrl}`)
+    return proxyUrl
+  }
+
+  /**  
+   * Inject with Overviewer Map Index
+  */
   @Get("/proxy/index.html")
   @Get("/proxy/")
   async mapIndex(
     @Req() req: any, 
     @Res() res: any
   ) {
-    let reqUrl = req.originalUrl.replace('/proxy', '')
-    let proxyUrl = 'https://overviewer.org/example'+reqUrl
-    console.log(`${chalk.bgCyan.white(' Proxy ')} \n${req.originalUrl}\n${proxyUrl}`)
     try {
-      var re = await needle('get', proxyUrl)
-    }catch(error){  
-      console.log(error)
+      var re = await needle('get', this.proxyUrl(req.original))
+    }catch(error){
       return error
     }
-    console.log(re.body)
     res.set(re.headers);
+    // Injecion
     var $ = cheerio.load(re.body)
     var injectHtml = `
-    <h1>Hello!</h1>
+      <h1>Hello!</h1>
     `
     $('body').append(injectHtml)
     return $.html()
   };
 
+  /**  
+   * Inject with Overviewer Map Index
+  */
   @Get("/proxy/*")
   async mapProxy(
     @Req() req: any, 
     @Res() res: any
   ) {
-    let reqUrl = req.originalUrl.replace('/proxy', '')
-    let proxyUrl = 'https://overviewer.org/example'+reqUrl
-    console.log(`${chalk.bgCyan.white(' Proxy ')} \n${req.originalUrl}\n${proxyUrl}`)
     try {
-      var re = await needle('get', proxyUrl)
+      var re = await needle('get', this.proxyUrl(req.original))
     }catch(error){  
-      console.log(error)
       return error
     }
     res.set(re.headers);

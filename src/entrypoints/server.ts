@@ -6,7 +6,6 @@ import * as path from 'path';
 let chalk = require('chalk')
 import "reflect-metadata";
 import { createExpressServer } from "routing-controllers";
-import { proxy } from "../proxies/Overviewer"
 
 const app = createExpressServer({
   controllers: [
@@ -41,7 +40,6 @@ app.use('/assets', express.static(path.resolve(__dirname, '../../assets')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use('/p', proxy);
 
 
 app.listen(port, () => {

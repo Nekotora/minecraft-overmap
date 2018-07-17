@@ -1,5 +1,4 @@
-var proxy = require('http-proxy-middleware');
-import { Controller, Get, UseAfter } from "routing-controllers";
+import { Controller, Get } from "routing-controllers";
 
 @Controller()
 export class WelcomeController {
