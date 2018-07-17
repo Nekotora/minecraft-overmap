@@ -21,3 +21,5 @@ public
 
 # Dist
 dist/*
+.cache
+ui/dist
