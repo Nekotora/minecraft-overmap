@@ -18,7 +18,9 @@ export class WelcomeController {
   }
 
   private proxyUrl(reqUrl: string){
-    let proxyTarget = 'https://overviewer.org/example/'
+    //let proxyTarget = 'https://overviewer.org/example/'
+    let proxyTarget = 'https://map.nyaacat.com/nyaa/'
+    
     let proxyUrl =  proxyTarget + reqUrl.replace('/proxy/', '')
     console.log(`${chalk.bgGreen.white(' Proxy ')} \n${reqUrl}\n${proxyUrl}`)
     return proxyUrl

@@ -4,20 +4,21 @@
       .logo
         h1 #OverMap
       .position_mc
-        span <b>X</b><i>123</i>
-        span <b>Y</b><i>123</i>
-        span <b>Z</b><i>123</i>
+        span <b>X</b><i>{{position_mc['x']}}</i>
+        span <b>Y</b><i>{{position_mc['y']}}</i>
+        span <b>Z</b><i>{{position_mc['z']}}</i>
     .toolbar
     .action
     .hud
 </template>
 
 <script>
+import Vue from 'vue';
 export default {
   name: "overmap",
   data(){
     return {
-      position_mc:[123,123,123],
+      position_mc:[],
       position_map:[123,123,123],
       positionList:[
         {
@@ -25,6 +26,31 @@ export default {
           position_mc: [123,123,123]
         }
       ]
+    }
+  },
+  mounted() {
+    this.initMap()
+  },
+  methods: {
+    initMap: function(){
+      if(!overviewer) alert("Overviewer Not Found!")
+      var _this = this
+      overviewer.map.on('mousemove', function(ev) {
+        _this.position_mc = _this.getMapEventPosition(ev)
+        return this.position_mc
+      });
+      overviewer.map.on('click', function(ev) {
+        var mcp = _this.getMapEventPosition(ev)
+        console.info("click at",mcp)
+        return true
+      });
+    },
+    getMapEventPosition: function(ev){
+      var currWorld = overviewer.current_world;
+      var currTileset = overviewer.current_layer[currWorld];
+      var ovconf = currTileset.tileSetConfig;
+      var mcp = overviewer.util.fromLatLngToWorld(ev.latlng.lat, ev.latlng.lng, ovconf);
+      return mcp
     }
   }
 }
@@ -51,7 +77,7 @@ body{
 }
 
 .leaflet-control-container{
-  display:none
+  /*display:none*/
 }
 </style>
 
