@@ -24,8 +24,9 @@ const sequelize = new Sequelize({
 });
 
 sequelize
-  .sync({force: true})
-  //.sync({alter:true})
+  .sync()
+  // .sync({force: true})
+  // .sync({alter:true})
   .then(() => {
     app.locals.sequelizeSync = true
     console.log(`${chalk.bgCyan.white(' Database ')} sequelize sync success`)
@@ -36,10 +37,16 @@ sequelize
   })
 
 
-app.use('/assets', express.static(path.resolve(__dirname, '../../assets')))
+app.use('/public', express.static(path.resolve(__dirname, '../../public')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.get("/*", function (req:any, res:any, next:any) {
+  res.setHeader('Last-Modified', (new Date()).toUTCString());
+  res.setHeader('NO-CACHE', (new Date()).toUTCString());
+  next();
+})
 
 
 app.listen(port, () => {

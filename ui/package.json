@@ -4,13 +4,21 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "parcel serve index.html --out-dir ../public/",
-    "build": "parcel build index.html --out-dir ../public/"
+    "serve": "parcel serve index.html --out-dir ../public/ --public-url /public/",
+    "dev": "parcel dev index.html --out-dir ../public/",
+    "watch": "parcel watch index.html --out-dir ../public/ --public-url /public/",
+    "build": "parcel build index.html --out-dir ../public/ --public-url /public/"
   },
   "dependencies": {
-    "vue": "^2.5.16"
+    "vue": "^2.5.16",
+    "vue-hot-reload-api": "^2.3.0"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.9.7"
+    "@vue/component-compiler-utils": "^2.1.0",
+    "node-sass": "^4.9.2",
+    "parcel-bundler": "^1.9.7",
+    "vue-template-compiler": "^2.5.16",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-vue": "^2.0.0"
   }
 }
