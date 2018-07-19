@@ -9,6 +9,12 @@
         span <b>Z</b><i>{{position_mc['z']}}</i>
     .toolbar
     .action
+      .btn
+        i.icon.ion-md-navigate
+      .btn
+        i.icon.ion-md-locate
+      .btn
+        i.icon.ion-md-settings
     .hud
 </template>
 
@@ -77,7 +83,7 @@ body{
 }
 
 .leaflet-control-container{
-  /*display:none*/
+  display:none
 }
 .loading_cover{
   position:absolute;
@@ -117,7 +123,7 @@ to {color: rgba(255,255,255,.5);transform: translateY(15px)}
     width: 100%;
     pointer-events: none;
     z-index: 2000;
-    background-image: radial-gradient(hsla(0,0,0,.0),hsla(0,0,0,.5));
+    background-image: radial-gradient(hsla(0,0,0,.0),hsla(0,0,0,.2));
   }
   .infobar{
     bottom: 10%;
@@ -146,6 +152,26 @@ to {color: rgba(255,255,255,.5);transform: translateY(15px)}
         font-weight: lighter;
         font-style: normal;
       }
+    }
+  }
+  .action{
+    right: 5%;
+    top: 5%;
+    .btn{
+      display: inline-block;
+      float: left;
+      margin: 0 10px;
+      font-size: 20px;
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,.5);
+      background-color: rgba(0,0,0,.6);
+      transition: .3s all;
+    }
+    .btn:hover{
+      background-color: rgba(0,0,0,1);
     }
   }
 }
