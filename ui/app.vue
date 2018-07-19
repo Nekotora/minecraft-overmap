@@ -79,6 +79,33 @@ body{
 .leaflet-control-container{
   /*display:none*/
 }
+.loading_cover{
+  position:absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(0,0,0,.7);
+  z-index: 50000;
+  color: #fff;
+  text-align: center;
+}
+
+.loading_cover h2{
+  padding-top: 30%;
+  font-size: 100px;
+  font-weight: lighter;
+  font-style: normal;
+  letter-spacing: .3em;
+  transition: 1s all;
+  animation: loading 1s ease-in-out infinite alternate;
+}
+
+@keyframes loading
+{
+from {color: rgba(255,255,255,1);transform: translateY(0)}
+to {color: rgba(255,255,255,.5);transform: translateY(15px)}
+}
 </style>
 
 <style lang="scss" scoped>
