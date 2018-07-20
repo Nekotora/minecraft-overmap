@@ -11,11 +11,28 @@
     .action
       .btn
         i.icon.ion-md-navigate
-      .btn
+      .btn(v-on:click="toggel_setPosition()")
         i.icon.ion-md-locate
       .btn
         i.icon.ion-md-settings
     .hud
+    .dialogbox
+      transition(name="slide-fade")
+        .dialog.set_position(v-if="this.panel_setPosition")
+          .header
+            h4 定位坐标
+          .body
+            form
+              .line.clear
+                .pos
+                  p X
+                  input(v-model="setPosition.x",type="number")
+                .pos
+                  p Z
+                  input(v-model="setPosition.z")
+              .submit
+                a.button(v-on:click="do_setPosition",type="number")
+                  i.icon.ion-md-checkmark
 </template>
 
 <script>
@@ -31,11 +48,14 @@ export default {
           name: "Nekotora's Home",
           position_mc: [123,123,123]
         }
-      ]
+      ],
+      panel_setPosition:false,
+      setPosition:{x:0,z:0}
     }
   },
   mounted() {
     this.initMap()
+    this.addPoint({x: 10,z: 20},'测试点','bookmark')
   },
   methods: {
     initMap: function(){
@@ -57,6 +77,29 @@ export default {
       var ovconf = currTileset.tileSetConfig;
       var mcp = overviewer.util.fromLatLngToWorld(ev.latlng.lat, ev.latlng.lng, ovconf);
       return mcp
+    },
+    toggel_setPosition: function(){
+      !this.panel_setPosition? this.panel_setPosition=true:this.panel_setPosition=false
+    },
+    do_setPosition:function(){
+      var currWorld = overviewer.current_world;
+      var currTileset = overviewer.current_layer[currWorld];
+      var ovconf = currTileset.tileSetConfig;
+      var latlng = overviewer.util.fromWorldToLatLng(parseInt(this.setPosition.x), '64', parseInt(this.setPosition.z), ovconf);
+      return overviewer.map.setView(latlng)
+    },
+    addPoint: function(mcPos,label,glyph){
+      var currWorld = overviewer.current_world;
+      var currTileset = overviewer.current_layer[currWorld];
+      var ovconf = currTileset.tileSetConfig;
+      var latlng = overviewer.util.fromWorldToLatLng(parseInt(mcPos.x), '64', parseInt(mcPos.x), ovconf);
+      var icon = L.icon.glyph({
+        prefix: 'fa',
+        glyph: glyph
+      })
+      //L.marker(latlng, {icon: icon }).bindLabel(label,{ noHide: true }).addTo(overviewer.map);
+      L.marker(latlng, {icon: icon }).addTo(overviewer.map).bindTooltip(label).openTooltip();
+      return true
     }
   }
 }
@@ -83,7 +126,7 @@ body{
 }
 
 .leaflet-control-container{
-  display:none
+  display:none;
 }
 .loading_cover{
   position:absolute;
@@ -112,10 +155,34 @@ body{
 from {color: rgba(255,255,255,1);transform: translateY(0)}
 to {color: rgba(255,255,255,.5);transform: translateY(15px)}
 }
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s ease
+}
+.slide-fade-enter, .slide-fade-leave-to{
+  transform: translateY(-10px);
+  opacity: 0;
+}
+.clear:after{
+  content:"";
+  display:block;
+  height:0;
+  visibility:hidden;
+  clear:both;
+}
 </style>
 
 <style lang="scss" scoped>
 .overmap_inner{
+  input{
+    background: none;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+  }
   .hud{
     top: 0;
     left: 0;
@@ -144,7 +211,7 @@ to {color: rgba(255,255,255,.5);transform: translateY(15px)}
       b{
         font-size: 17px;
         font-weight: lighter;
-        color: #66ccff
+        color: #66ccff;
       }
       i{
         font-size: 12px;
@@ -158,6 +225,7 @@ to {color: rgba(255,255,255,.5);transform: translateY(15px)}
     right: 5%;
     top: 5%;
     .btn{
+      position: relative;
       display: inline-block;
       float: left;
       margin: 0 10px;
@@ -169,9 +237,52 @@ to {color: rgba(255,255,255,.5);transform: translateY(15px)}
       box-shadow: 0 4px 12px rgba(0,0,0,.5);
       background-color: rgba(0,0,0,.6);
       transition: .3s all;
+      cursor: pointer;
     }
     .btn:hover{
       background-color: rgba(0,0,0,1);
+    }
+  }
+  .dialogbox{
+    .dialog{
+      position: fixed;
+      top: 5%;
+      left: 5%;
+      width: 300px;
+      z-index: 2222;
+      box-shadow: 0 4px 12px rgba(0,0,0,.5);
+      background-color: rgba(0,0,0,.6);
+      .header{
+        font-size: 14px;
+      }
+    }
+    .dialog>div{
+      padding: 10px;
+      opacity: 1;
+    }
+    .submit{
+      text-align: right;
+      margin-top: 20px;
+      .button{
+        display: inline-block;
+        font-size: 18px;
+        padding: 5px 20px;
+        transition: .3s all;
+        background-color: rgba(255,255,255,.1);
+      }
+      .button:hover{
+        background-color: rgba(255,255,255,.2)
+      }
+    }
+  }
+  .dialog.set_position{
+    .pos{
+      float: left;
+      width: 50%;
+      input{
+        width: 90%;
+        padding: 5%;
+      }
     }
   }
 }
