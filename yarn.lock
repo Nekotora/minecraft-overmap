@@ -12,6 +12,10 @@
   dependencies:
     "@types/babel-types" "*"
 
+"@types/bcryptjs@^2.4.1":
+  version "2.4.1"
+  resolved "http://registry.npm.taobao.org/@types/bcryptjs/download/@types/bcryptjs-2.4.1.tgz#7fb63922b5b106edacdcfe084cd38850f78aacfc"
+
 "@types/bluebird@*":
   version "3.5.22"
   resolved "http://registry.npm.taobao.org/@types/bluebird/download/@types/bluebird-3.5.22.tgz#519b87fe3c9d290ca6c06381ffc3040770ab452b"
@@ -116,6 +120,10 @@
 "@types/node@6.0.41":
   version "6.0.41"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-6.0.41.tgz#578cf53aaec65887bcaf16792f8722932e8ff8ea"
+
+"@types/node@^10.7.0":
+  version "10.7.0"
+  resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-10.7.0.tgz#d384b2c8625414ab2aa18fdf989c288d6a7a8202"
 
 "@types/range-parser@*":
   version "1.2.2"
@@ -760,6 +768,10 @@ basic-auth@~2.0.0:
   resolved "http://registry.npm.taobao.org/basic-auth/download/basic-auth-2.0.0.tgz#015db3f353e02e56377755f962742e8981e7bbba"
   dependencies:
     safe-buffer "5.1.1"
+
+bcryptjs@^2.4.3:
+  version "2.4.3"
+  resolved "http://registry.npm.taobao.org/bcryptjs/download/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
 
 beeper@^1.0.0:
   version "1.1.1"
@@ -4465,6 +4477,10 @@ type-is@~1.6.15, type-is@~1.6.16:
 typedarray@~0.0.5:
   version "0.0.6"
   resolved "http://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
+
+typedi@^0.8.0:
+  version "0.8.0"
+  resolved "http://registry.npm.taobao.org/typedi/download/typedi-0.8.0.tgz#d8e203bd1d41a96e2b0a5c6295147d74b2b2d03e"
 
 typescript@^2.9.2:
   version "2.9.2"

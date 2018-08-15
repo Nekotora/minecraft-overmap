@@ -55,7 +55,10 @@ export default {
   },
   mounted() {
     this.initMap()
-    this.addPoint({x: 10,z: 20},'测试点','bookmark')
+    this.addPoint({x: 380,y: 73,z: 281},'商店：哞菇Store','bookmark')
+    this.addPoint({x: 376,y: 72,z: 259},'商店：Viper','bookmark')
+    this.addPoint({x: 367,y: 72,z: 259},'商店：Cat_Lemon','bookmark')
+    this.addPoint({x: 357,y: 72,z: 259},'商店：Nekonep','bookmark')
   },
   methods: {
     initMap: function(){
@@ -92,7 +95,7 @@ export default {
       var currWorld = overviewer.current_world;
       var currTileset = overviewer.current_layer[currWorld];
       var ovconf = currTileset.tileSetConfig;
-      var latlng = overviewer.util.fromWorldToLatLng(parseInt(mcPos.x), '64', parseInt(mcPos.x), ovconf);
+      var latlng = overviewer.util.fromWorldToLatLng(parseInt(mcPos.x), parseInt(mcPos.y), parseInt(mcPos.z), ovconf);
       var icon = L.icon.glyph({
         prefix: 'fa',
         glyph: glyph
